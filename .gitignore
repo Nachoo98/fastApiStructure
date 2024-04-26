@@ -27,5 +27,7 @@ lerna-debug.log*
 .settings/
 *.sublime-workspace
 
+#Custom
 .env
 .venv
+__pycache__
