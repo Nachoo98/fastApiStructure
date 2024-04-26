@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5000
 
 # Ejecutar la aplicación FastAPI
-CMD ["python", "app/main.py"]  # Ajustar la ruta según la ubicación de main.py
+CMD ["python", "app/main.py"]  

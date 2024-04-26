@@ -1,39 +1,32 @@
 version: "3.8"
+
 services:
   app:
     build:
+      context: .
       dockerfile: Dockerfile
-      context: "."
-    volumes:
-      - "./:/app"
     ports:
-      - 5000:5000
+      - "5000:5000"
     depends_on:
       - mysql
     env_file:
       - .env
     networks:
-      backend:
-        aliases:
-          - mysql
+      - fullstack
+
   mysql:
     image: mysql:latest
     restart: always
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - mysql:/var/lib/mysql
-    ports:
-      - 3306:3306
     environment:
-      - MYSQL_DATABASE=fastapi
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=rootpassword
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
     networks:
-      backend:
-        aliases:
-          - mysql
-volumes:
-  mysql:
+      - fullstack
+
 networks:
-  backend:
-    name: backend-network
+  fullstack:
+    driver: bridge
